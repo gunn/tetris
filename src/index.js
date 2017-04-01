@@ -1,44 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import store from './store'
 import Tetris from './tetris'
 
 
-const WIDTH  = 11
-const HEIGHT = 22
+document.onkeydown = e=> store.dispatch({type: e.code})
 
-const PIECES = [
-  {
-    color:  "#0066FF",
-    blocks: [[-1, 0],  [0, 0],  [1, 0],  [2, 0]] 
-  }, {
-    color:  "#66FF00",
-    blocks: [[-1, -1], [0, -1], [0, 0],  [1, 0]]
-  }, {
-    color:  "#FF6600",
-    blocks: [[-1, 0],  [0, 0],  [0, -1], [-1, -1]]
-  }, {
-    color:  "#CC0000",
-    blocks: [[0, 0],   [1, 0],  [0, -1], [1, -1]]
+let lastDrop = new Date()
+const processFrame = ()=> {
+  const elapsedTime = new Date() - lastDrop
+  if (elapsedTime > 500) {
+    store.dispatch({type: "Drop"})
+    lastDrop = new Date()
   }
-]
-
-const getNewPiece = ()=> ({
-  x: Math.floor(WIDTH/2),
-  y: 1,
-  ...PIECES[Math.floor(Math.random()*PIECES.length)]
-})
-
-let state = {
-  grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
-  currentPiece: getNewPiece()
+  requestAnimationFrame(processFrame)
 }
+processFrame()
+
 
 const render = ()=> {
   ReactDOM.render(
-    <Tetris state={state}/>,
+    <Tetris state={store.getState()}/>,
     document.getElementById("root")
   )
 }
+
+if (window.unsubscribe) window.unsubscribe()
+window.unsubscribe = store.subscribe(render)
 render()
 
 if (module.hot) {
