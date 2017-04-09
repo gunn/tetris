@@ -26,48 +26,93 @@ const getNewPiece = ()=> ({
 })
 
 const initialState = {
-  grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
-  currentPiece: getNewPiece()
+  tetris: {
+    grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
+    currentPiece: getNewPiece()
+  }
 }
 
-const grid = (state=initialState.grid, action)=> {
-  return state
-}
-
-const currentPiece = (state=initialState.currentPiece, action)=> {
+const movementDeltaForAction = (action)=> {
   switch (action.type) {
-  case 'Space':
-    return {
-      ...state,
-      y: state.y + 5
+    case 'ArrowUp'   : return {r:  1}
+    case 'ArrowLeft' : return {x: -1}
+    case 'ArrowRight': return {x:  1}
+    case 'ArrowDown' : 
+    case 'Drop'      : return {y:  1}
+    case 'Space'     : return {y: HEIGHT}
+  }
+}
+
+const pieceCanFit = (grid, piece)=> {
+  const {x:px, y:py} = piece
+  return piece.blocks.every(([bx, by])=> {
+    const [x, y] = [px+bx, py+by]
+
+
+    if (y> 20) debugger
+    return !(grid[x] && grid[x][y]) &&
+           x >= 0 &&
+           x < WIDTH &&
+           y < HEIGHT
+  })
+}
+
+const attemptMove = (grid, piece, delta)=> {
+  const deltas = Object.assign({x: 0, y: 0, r: 0}, delta)
+
+  const newPiece = {
+    ...piece,
+    x: piece.x + deltas.x,
+    y: piece.y + deltas.y,
+  }
+
+  if (pieceCanFit(grid, newPiece)) {
+    return [false, newPiece]
+  } else {
+    return [true, piece]
+  }
+}
+
+const addPieceToGrid = (grid, piece)=> {
+  const {x:px, y:py, color} = piece
+  piece.blocks.forEach(([bx, by])=> {
+    const [x, y] = [px+bx, py+by]
+
+    grid[x][y] = color
+  })
+
+  // FIXME: grid has been mutated:
+  return grid.map(row=> row.map(cell=> cell))
+}
+
+const tetris = (state=initialState.tetris, action)=> {
+  let {grid, currentPiece} = state
+
+  const delta = movementDeltaForAction(action)
+  if (!delta) return state
+
+  const [moveObstructed, movedPiece] = attemptMove(grid, currentPiece, delta)
+  currentPiece = movedPiece
+
+  if (action.type=="Drop" && moveObstructed) {
+    grid         = addPieceToGrid(grid, currentPiece)
+    currentPiece = getNewPiece()
+
+    if (!pieceCanFit(grid, currentPiece)) {
+      // Game Over
+      grid = grid.map(row=> row.map(cell=> 0))
     }
-  case 'ArrowDown':
-    return {
-      ...state,
-      y: state.y + 1
-    }
-  case 'ArrowLeft':
-    return {
-      ...state,
-      x: state.x - 1
-    }
-  case 'ArrowRight':
-    return {
-      ...state,
-      x: state.x + 1
-    }
-  case 'Drop':
-    return {
-      ...state,
-      y: state.y + 1
-    }
-  default:
-    return state
+  }
+
+
+  return {
+    grid,
+    currentPiece
   }
 }
 
 
-let store = createStore(combineReducers({grid, currentPiece}))
+let store = createStore(combineReducers({tetris}))
 
 
 

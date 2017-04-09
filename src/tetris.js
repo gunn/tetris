@@ -51,10 +51,12 @@ class Tetris extends React.Component {
               width:  ${BLOCK_SIZE-BORDER_SIZE}px;
               height: ${BLOCK_SIZE-BORDER_SIZE}px;
               border: ${BORDER_SIZE}px solid #333;
+              z-index: 20;
             }
 
             .block.empty {
               border: ${BORDER_SIZE}px solid #EEE;
+              z-index: 10;
             }
           `}
         </style>

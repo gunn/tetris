@@ -20,7 +20,7 @@ processFrame()
 
 const render = ()=> {
   ReactDOM.render(
-    <Tetris state={store.getState()}/>,
+    <Tetris state={store.getState().tetris}/>,
     document.getElementById("root")
   )
 }
