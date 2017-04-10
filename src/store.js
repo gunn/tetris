@@ -5,23 +5,51 @@ const HEIGHT = 22
 
 const PIECES = [
   {
-    color:  "#0066FF",
-    blocks: [[-1, 0],  [0, 0],  [1, 0],  [2, 0]] 
-  }, {
-    color:  "#66FF00",
-    blocks: [[-1, -1], [0, -1], [0, 0],  [1, 0]]
-  }, {
+    // ####
     color:  "#FF6600",
-    blocks: [[-1, 0],  [0, 0],  [0, -1], [-1, -1]]
+    blocks: [[-1, 0],  [0, 0],  [1, 0],  [2, 0]],
+    rotate: ([x, y])=> [-y, -x]
   }, {
+    // ##
+    //  ##
+    color:  "#66FF00",
+    blocks: [[-1, -1], [0, -1], [0, 0],  [1, 0]],
+    rotate: ([x, y], r)=> r%2==0 ? [y, -x] : [-y, x]
+  }, {
+    //  ##
+    // ##
+    color:  "#00FFFF",
+    blocks: [[-1, 0],  [0, -1], [0, 0],  [1, -1]],
+    rotate: ([x, y], r)=> r%2==0 ? [y, -x] : [-y, x]
+  }, {
+    // ###
+    //   #
+    color:  "#0066FF",
+    blocks: [[-1, 0],  [0, 0],  [1, 0],  [1, 1]]
+  }, {
+    // ###
+    // #
+    color:  "#9900FF",
+    blocks: [[-1, 0],  [0, 0],  [1, 0],  [-1, 1]]
+  }, {
+    // ###
+    //  #
+    color:  "#FFFF00",
+    blocks: [[-1, 0],  [0, 0],  [1, 0],  [0, 1]]
+  }, {
+    // ##
+    // ##
     color:  "#CC0000",
-    blocks: [[0, 0],   [1, 0],  [0, -1], [1, -1]]
+    blocks: [[0, 0],   [1, 0],  [0, -1], [1, -1]],
+    rotate: ([x, y])=> [x, y]
   }
 ]
 
 const getNewPiece = ()=> ({
   x: Math.floor(WIDTH/2),
   y: 1,
+  r: 0,
+  rotate: ([x, y])=> [-y, x],
   ...PIECES[Math.floor(Math.random()*PIECES.length)]
 })
 
@@ -62,9 +90,15 @@ const attemptMove = (grid, piece, delta)=> {
 
   const newPiece = {
     ...piece,
+    r: piece.r + deltas.r,
     x: piece.x + deltas.x,
     y: piece.y + deltas.y,
   }
+
+  if (deltas.r) {
+    newPiece.blocks = newPiece.blocks.map(b=> newPiece.rotate(b, newPiece.r))
+  }
+
 
   if (pieceCanFit(grid, newPiece)) {
     return [false, newPiece]
