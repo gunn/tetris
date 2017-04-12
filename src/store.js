@@ -85,6 +85,15 @@ const pieceCanFit = (grid, piece)=> {
   })
 }
 
+const pieceCanMoveDown = (grid, piece)=> {
+  const movedPiece = {
+    ...piece,
+    y: piece.y + 1
+  }
+
+  return pieceCanFit(grid, movedPiece)
+}
+
 const attemptMove = (grid, piece, delta)=> {
   const deltas = Object.assign({x: 0, y: 0, r: 0}, delta)
 
@@ -92,13 +101,26 @@ const attemptMove = (grid, piece, delta)=> {
     ...piece,
     r: piece.r + deltas.r,
     x: piece.x + deltas.x,
-    y: piece.y + deltas.y,
+    // y: piece.y + deltas.y,
   }
 
   if (deltas.r) {
     newPiece.blocks = newPiece.blocks.map(b=> newPiece.rotate(b, newPiece.r))
   }
 
+  if (deltas.y) {
+    // We can do this because only type of movement is processed at once.
+    // I.E. !(delta.y && delta.r)
+
+    for (let i=1; i<=deltas.y; i++) {
+      newPiece.y = piece.y + i
+      if (!pieceCanFit(grid, newPiece)) {
+        // Use the last good position and report the move was obstructed:
+        newPiece.y -= 1
+        return [true, newPiece]
+      }
+    }
+  }
 
   if (pieceCanFit(grid, newPiece)) {
     return [false, newPiece]
@@ -125,10 +147,14 @@ const tetris = (state=initialState.tetris, action)=> {
   const delta = movementDeltaForAction(action)
   if (!delta) return state
 
+  const pieceHasSettled = delta.y && !pieceCanMoveDown(grid, currentPiece)
+
+
   const [moveObstructed, movedPiece] = attemptMove(grid, currentPiece, delta)
   currentPiece = movedPiece
 
-  if (action.type=="Drop" && moveObstructed) {
+
+  if (pieceHasSettled) {
     grid         = addPieceToGrid(grid, currentPiece)
     currentPiece = getNewPiece()
 
