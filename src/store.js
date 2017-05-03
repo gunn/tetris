@@ -164,15 +164,25 @@ const tetris = (state=initialState.tetris, action)=> {
     }
   }
 
-
   return {
     grid,
     currentPiece
   }
 }
 
+const lastDropTime = (state=new Date(), action)=> {
+    switch (action.type) {
+    case 'Space':
+    case 'ArrowDown':
+    case 'Drop':
+      return new Date()
+    default:
+      return state
+  }
+}
 
-let store = createStore(combineReducers({tetris}))
+
+let store = createStore(combineReducers({tetris, lastDropTime}))
 
 
 
