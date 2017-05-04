@@ -137,8 +137,26 @@ const addPieceToGrid = (grid, piece)=> {
     grid[x][y] = color
   })
 
+  // const changedRows = piece.blocks.map(([bx, by])=> py+by)
+  //                                 .filter((e, i, a)=> a.indexOf(e)==i)
+
+  // const filledRows = changedRows.filter(y=> {
+  //   return grid.every(column=> column[y])
+  // })
+
+  const filledRows = grid[0].map((_, i)=> i).filter(i=> {
+    return grid.every(column=> column[i])
+  })
+
+  filledRows.forEach(y=> {
+    grid.forEach(column=> {
+      column.splice(y, 1)
+      column.unshift(0)
+    })
+  })
+
   // FIXME: grid has been mutated:
-  return grid.map(row=> row.map(cell=> cell))
+  return grid.map(column=> column.map(cell=> cell))
 }
 
 const tetris = (state=initialState.tetris, action)=> {

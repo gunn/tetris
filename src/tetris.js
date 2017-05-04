@@ -2,8 +2,6 @@ import React from 'react';
 
 const BLOCK_SIZE  = 35
 const BORDER_SIZE = 2
-const WIDTH       = 11
-const HEIGHT      = 22
 
 class Piece extends React.Component {
   render() {
@@ -30,6 +28,8 @@ class Piece extends React.Component {
 class Tetris extends React.Component {
   render() {
     const { grid, currentPiece } = this.props.state
+    const WIDTH  = grid.length
+    const HEIGHT = grid[0].length
 
     return (
       <div className="board">
