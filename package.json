@@ -9,10 +9,8 @@
     "babel-core": "^6.0.20",
     "babel-loader": "^6.0.1",
     "babel-preset-latest": "^6.16.0",
-    "babel-preset-react": "^6.0.15",
     "babel-preset-stage-0": "^6.0.15",
     "eslint": "^1.10.3",
-    "eslint-plugin-react": "^3.6.2",
     "express": "^4.13.4",
     "react-hot-loader": "next",
     "webpack": "beta",
@@ -20,9 +18,9 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.2",
+    "babel-plugin-inferno": "^1.6.0",
+    "inferno": "^1.2.1",
+    "inferno-component": "^1.2.1",
     "redux": "^3.6.0"
   }
 }

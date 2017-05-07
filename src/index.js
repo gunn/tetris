@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import Inferno from 'inferno'
 import store from './store'
 import Tetris from './tetris'
 
@@ -16,7 +15,7 @@ processFrame()
 
 
 const render = ()=> {
-  ReactDOM.render(
+  Inferno.render(
     <Tetris state={store.getState().tetris}/>,
     document.getElementById("root")
   )

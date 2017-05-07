@@ -1,9 +1,10 @@
-import React from 'react';
+import Inferno from 'inferno'
+import Component from 'inferno-component'
 
 const BLOCK_SIZE  = 35
 const BORDER_SIZE = 2
 
-class Piece extends React.Component {
+class Piece extends Component {
   render() {
     const { color, blocks, x, y } = this.props
 
@@ -25,7 +26,7 @@ class Piece extends React.Component {
 }
 
 
-class Tetris extends React.Component {
+class Tetris extends Component {
   render() {
     const { grid, currentPiece } = this.props.state
     const WIDTH  = grid.length

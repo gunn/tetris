@@ -370,6 +370,13 @@ babel-plugin-check-es2015-constants@^6.3.13:
   dependencies:
     babel-runtime "^6.0.0"
 
+babel-plugin-inferno@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-inferno/-/babel-plugin-inferno-1.6.0.tgz#7224265f1a1cfdc5bc5e2df1cf480dccb9cc7896"
+  dependencies:
+    babel-plugin-syntax-jsx "^6.18.0"
+    inferno-vnode-flags "^1"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -414,7 +421,7 @@ babel-plugin-syntax-function-bind@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-function-bind/-/babel-plugin-syntax-function-bind-6.13.0.tgz#48c495f177bdf31a981e732f55adc0bdd2601f46"
 
-babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
+babel-plugin-syntax-jsx@^6.18.0, babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
@@ -1946,6 +1953,22 @@ ieee754@^1.1.4:
 indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
+
+inferno-component@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-component/-/inferno-component-1.2.1.tgz#e250421373912ccd846378857fc028973d466c32"
+  dependencies:
+    inferno "1.2.1"
+
+inferno-vnode-flags@^1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-vnode-flags/-/inferno-vnode-flags-1.2.1.tgz#86296a248b2dc31421eeeb8ed553c57b25f79a37"
+  dependencies:
+    inferno "1.2.1"
+
+inferno@1.2.1, inferno@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.2.1.tgz#154799226298deca6cd561c8da88a5e5f30a2369"
 
 inflight@^1.0.4:
   version "1.0.6"
