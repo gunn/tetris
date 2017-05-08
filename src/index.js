@@ -16,7 +16,7 @@ processFrame()
 
 const render = ()=> {
   Inferno.render(
-    <Tetris state={store.getState().tetris}/>,
+    <Tetris {...store.getState().tetris}/>,
     document.getElementById("root")
   )
 }

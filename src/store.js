@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from 'redux'
 
 const WIDTH  = 11
-const HEIGHT = 22
+const HEIGHT = 24
 
 const PIECES = [
   {
@@ -45,6 +45,9 @@ const PIECES = [
   }
 ]
 
+const SCORING = [5, 24, 76, 192, 584]
+
+
 const getNewPiece = ()=> ({
   x: Math.floor(WIDTH/2),
   y: 1,
@@ -56,7 +59,8 @@ const getNewPiece = ()=> ({
 const initialState = {
   tetris: {
     grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
-    currentPiece: getNewPiece()
+    currentPiece: getNewPiece(),
+    score: 0
   }
 }
 
@@ -77,7 +81,6 @@ const pieceCanFit = (grid, piece)=> {
     const [x, y] = [px+bx, py+by]
 
 
-    if (y> 20) debugger
     return !(grid[x] && grid[x][y]) &&
            x >= 0 &&
            x < WIDTH &&
@@ -156,11 +159,16 @@ const addPieceToGrid = (grid, piece)=> {
   })
 
   // FIXME: grid has been mutated:
-  return grid.map(column=> column.map(cell=> cell))
+  grid = grid.map(column=> column.map(cell=> cell))
+
+  return {
+    grid,
+    eliminatedRowCount: filledRows.length
+  }
 }
 
 const tetris = (state=initialState.tetris, action)=> {
-  let {grid, currentPiece} = state
+  let {grid, currentPiece, score} = state
 
   const delta = movementDeltaForAction(action)
   if (!delta) return state
@@ -173,18 +181,25 @@ const tetris = (state=initialState.tetris, action)=> {
 
 
   if (pieceHasSettled) {
-    grid         = addPieceToGrid(grid, currentPiece)
+    const addResult = addPieceToGrid(grid, currentPiece)
+    const eliminatedRowCount = addResult.eliminatedRowCount
+    grid = addResult.grid
+
     currentPiece = getNewPiece()
+
+    score += SCORING[eliminatedRowCount]
 
     if (!pieceCanFit(grid, currentPiece)) {
       // Game Over
-      grid = grid.map(row=> row.map(cell=> 0))
+      grid  = grid.map(row=> row.map(cell=> 0))
+      score = 0
     }
   }
 
   return {
     grid,
-    currentPiece
+    currentPiece,
+    score
   }
 }
 

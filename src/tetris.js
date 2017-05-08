@@ -28,7 +28,7 @@ class Piece extends Component {
 
 class Tetris extends Component {
   render() {
-    const { grid, currentPiece } = this.props.state
+    const { grid, currentPiece, score } = this.props
     const WIDTH  = grid.length
     const HEIGHT = grid[0].length
 
@@ -45,6 +45,13 @@ class Tetris extends Component {
               width:  ${(WIDTH  * BLOCK_SIZE)+BORDER_SIZE}px;
               height: ${(HEIGHT * BLOCK_SIZE)+BORDER_SIZE}px;
               border: ${BORDER_SIZE}px solid #888;
+              display: inline-block;
+            }
+
+            .info {
+              position: absolute;
+              display: inline-block;
+              padding: 10px;
             }
 
             .block {
@@ -86,4 +93,14 @@ class Tetris extends Component {
   }
 }
 
-export default Tetris
+const App = ({grid, currentPiece, score})=>
+  <div>
+    <Tetris {...{grid, currentPiece, score}} />
+
+    <div className="info">
+      <h1>{score}</h1>
+    </div>
+  </div>
+
+
+export default App
