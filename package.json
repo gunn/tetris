@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Tetris in react",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack -p --config=./webpack.config.production.js --progress --colors"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",

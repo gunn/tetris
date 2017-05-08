@@ -8,7 +8,7 @@ document.onkeydown = e=> store.dispatch({type: e.code})
 const processFrame = ()=> {
   const elapsedTime = new Date() - store.getState().lastDropTime
 
-  if (elapsedTime > 500) store.dispatch({type: "Drop"})
+  if (elapsedTime > 400) store.dispatch({type: "Drop"})
   requestAnimationFrame(processFrame)
 }
 processFrame()

@@ -65,7 +65,7 @@ const movementDeltaForAction = (action)=> {
     case 'ArrowUp'   : return {r:  1}
     case 'ArrowLeft' : return {x: -1}
     case 'ArrowRight': return {x:  1}
-    case 'ArrowDown' : 
+    case 'ArrowDown' : return {y:  2}
     case 'Drop'      : return {y:  1}
     case 'Space'     : return {y: HEIGHT}
   }
