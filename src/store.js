@@ -1,5 +1,3 @@
-import { createStore, combineReducers } from 'redux'
-
 const WIDTH  = 11
 const HEIGHT = 24
 
@@ -61,7 +59,8 @@ const initialState = {
     grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
     currentPiece: getNewPiece(),
     score: 0
-  }
+  },
+  lastDropTime: new Date()
 }
 
 const movementDeltaForAction = (action)=> {
@@ -215,8 +214,26 @@ const lastDropTime = (state=new Date(), action)=> {
 }
 
 
-let store = createStore(combineReducers({tetris, lastDropTime}))
 
+let state = initialState
+
+let store = {
+  dispatch(action) {
+    state.tetris       = tetris(state.tetris, action)
+    state.lastDropTime = lastDropTime(state.lastDropTime, action)
+
+    if (this.callback) this.callback()
+  },
+
+  getState() {
+    return state
+  },
+
+  subscribe(callback) {
+    this.callback = callback
+    return ()=> this.callback = null
+  }
+}
 
 
 

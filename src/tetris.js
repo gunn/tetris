@@ -1,5 +1,4 @@
 import Inferno from 'inferno'
-import Component from 'inferno-component'
 
 const BLOCK_SIZE  = 35
 const BORDER_SIZE = 2
