@@ -1,6 +1,6 @@
 import Inferno from 'inferno'
 import store from './store'
-import Tetris from './tetris'
+import App from './tetris'
 
 
 document.onkeydown = e=> store.dispatch({type: e.code})
@@ -16,7 +16,7 @@ processFrame()
 
 const render = ()=> {
   Inferno.render(
-    <Tetris {...store.getState().tetris}/>,
+    <App {...store.getState().tetris}/>,
     document.getElementById("root")
   )
 }
