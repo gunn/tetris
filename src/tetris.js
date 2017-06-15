@@ -18,7 +18,7 @@ const Piece = ({ color, blocks, x, y })=>
   </div>
 
 
-const Tetris = ({ grid, currentPiece, score })=> {
+const Tetris = ({ grid, currentPiece })=> {
   const WIDTH  = grid.length
   const HEIGHT = grid[0].length
 
@@ -82,9 +82,9 @@ const Tetris = ({ grid, currentPiece, score })=> {
   );
 }
 
-const App = ({grid, currentPiece, score})=>
+const App = ({grid, currentPiece, score, speed})=>
   <div>
-    <Tetris {...{grid, currentPiece, score}} />
+    <Tetris {...{grid, currentPiece}} />
 
     <div className="info">
       <h1>{score}</h1>

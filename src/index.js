@@ -6,9 +6,10 @@ import App from './tetris'
 document.onkeydown = e=> store.dispatch({type: e.code})
 
 const processFrame = ()=> {
-  const elapsedTime = new Date() - store.getState().lastDropTime
+  const {lastDropTime, tetris: {speed}} = store.getState()
+  const elapsedTime = new Date() - lastDropTime
 
-  if (elapsedTime > 400) store.dispatch({type: "Drop"})
+  if (elapsedTime > 1000 / speed) store.dispatch({type: "Drop"})
   requestAnimationFrame(processFrame)
 }
 processFrame()
