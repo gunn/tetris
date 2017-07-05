@@ -7,19 +7,19 @@
     "build": "webpack -p --config=./webpack.config.production.js --progress --colors"
   },
   "devDependencies": {
-    "babel-core": "^6.0.20",
-    "babel-loader": "^6.0.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
     "babel-plugin-inferno": "^3.2.0",
     "babel-preset-latest": "^6.16.0",
-    "babel-preset-stage-0": "^6.0.15",
-    "eslint": "^1.10.3",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.0.0",
     "express": "^4.13.4",
     "react-hot-loader": "next",
-    "webpack": "beta",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack": "3.0.0",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
-    "inferno": "^3.0.4"
+    "inferno": "^3.5.2"
   }
 }
