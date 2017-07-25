@@ -11,13 +11,13 @@ const PIECES = [
     // ##
     //  ##
     color:  "#66FF00",
-    blocks: [[-1, -1], [0, -1], [0, 0],  [1, 0]],
+    blocks: [[-1, 0], [0, 0], [0, 1],  [1, 1]],
     rotate: ([x, y], r)=> r%2==0 ? [y, -x] : [-y, x]
   }, {
     //  ##
     // ##
     color:  "#00FFFF",
-    blocks: [[-1, 0],  [0, -1], [0, 0],  [1, -1]],
+    blocks: [[-1, 1],  [0, 0], [0, 1],  [1, 0]],
     rotate: ([x, y], r)=> r%2==0 ? [y, -x] : [-y, x]
   }, {
     // ###
@@ -38,7 +38,7 @@ const PIECES = [
     // ##
     // ##
     color:  "#CC0000",
-    blocks: [[0, 0],   [1, 0],  [0, -1], [1, -1]],
+    blocks: [[0, 1],   [1, 1],  [0, 0], [1, 0]],
     rotate: ([x, y])=> [x, y]
   }
 ]
@@ -48,7 +48,7 @@ const SCORING = [5, 24, 76, 192, 584]
 
 const getNewPiece = ()=> ({
   x: Math.floor(WIDTH/2),
-  y: 1,
+  y: 0,
   r: 0,
   rotate: ([x, y])=> [-y, x],
   ...PIECES[Math.floor(Math.random()*PIECES.length)]
