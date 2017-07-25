@@ -12,14 +12,14 @@
     "babel-plugin-inferno": "^3.2.0",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.1.1",
+    "eslint": "^4.3.0",
     "express": "^4.15.3",
     "react-hot-loader": "next",
-    "webpack": "^3.1.0",
+    "webpack": "^3.3.0",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.2"
   },
   "dependencies": {
-    "inferno": "^3.6.4"
+    "inferno": "^3.7.0"
   }
 }
