@@ -2,6 +2,7 @@ import Inferno from 'inferno'
 
 const BLOCK_SIZE  = 35
 const BORDER_SIZE = 2
+const MARGINS     = [10, 10, 10, 10]
 
 const Piece = ({ color, blocks, x, y })=>
   <div>
@@ -9,8 +10,8 @@ const Piece = ({ color, blocks, x, y })=>
       blocks.map(([bx, by], i)=> {
         const style = {
           backgroundColor: color,
-          top:  BORDER_SIZE+ (y+by)*BLOCK_SIZE,
-          left: BORDER_SIZE+ (x+bx)*BLOCK_SIZE
+          top:  MARGINS[0] + BORDER_SIZE+ (y+by)*BLOCK_SIZE,
+          left: MARGINS[3] + BORDER_SIZE+ (x+bx)*BLOCK_SIZE
         }
         return <div className="block" key={i} style={style}/>
       })
@@ -32,6 +33,7 @@ const Tetris = ({ grid, currentPiece })=> {
             // box-sizing: border-box;
           }
           .board {
+            margin: ${MARGINS.map(m=> m+"px").join(" ")};
             width:  ${(WIDTH  * BLOCK_SIZE)+BORDER_SIZE}px;
             height: ${(HEIGHT * BLOCK_SIZE)+BORDER_SIZE}px;
             border: ${BORDER_SIZE}px solid #888;
@@ -65,8 +67,8 @@ const Tetris = ({ grid, currentPiece })=> {
             // if (blockColor) {
               const style = {
                 backgroundColor: blockColor ? blockColor : "initial",
-                top:  BORDER_SIZE+ j*BLOCK_SIZE,
-                left: BORDER_SIZE+ i*BLOCK_SIZE
+                top:  MARGINS[0] + BORDER_SIZE+ j*BLOCK_SIZE,
+                left: MARGINS[3] + BORDER_SIZE+ i*BLOCK_SIZE
               }
 
               return <div key={i+"-"+j}
