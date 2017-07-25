@@ -84,12 +84,26 @@ const Tetris = ({ grid, currentPiece })=> {
   );
 }
 
+const zerosForScore = (score)=> {
+  const SCORE_LENGTH = 9
+  const zerosLength  = SCORE_LENGTH - (score && score.toString().length)
+
+  return new Array(zerosLength+1).join("0")
+}
+
+
 const App = ({grid, currentPiece, nextPiece, score, speed})=>
   <div>
     <Tetris {...{grid, currentPiece}} />
 
     <div className="info">
-      <h1>{score}</h1>
+      <h1 style={{fontFamily: "monospace", color: "#333"}}>
+        <span style={{color: "#CCC"}}>
+          {zerosForScore(score)}
+        </span>
+
+        {score && score || ""}
+      </h1>
 
       <div style={{position: "relative", margin: "0px 30px"}}>
         <Piece {...nextPiece} x={0} y={0}/>
