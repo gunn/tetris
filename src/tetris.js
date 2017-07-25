@@ -82,12 +82,16 @@ const Tetris = ({ grid, currentPiece })=> {
   );
 }
 
-const App = ({grid, currentPiece, score, speed})=>
+const App = ({grid, currentPiece, nextPiece, score, speed})=>
   <div>
     <Tetris {...{grid, currentPiece}} />
 
     <div className="info">
       <h1>{score}</h1>
+
+      <div style={{position: "relative", margin: "0px 30px"}}>
+        <Piece {...nextPiece} x={0} y={0}/>
+      </div>
     </div>
   </div>
 

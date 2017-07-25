@@ -58,6 +58,7 @@ const initialState = {
   tetris: {
     grid: Array(WIDTH).fill([]).map(()=> Array(HEIGHT).fill(0)),
     currentPiece: getNewPiece(),
+    nextPiece: getNewPiece(),
     score: 0,
     speed: 2.5
   },
@@ -168,7 +169,7 @@ const addPieceToGrid = (grid, piece)=> {
 }
 
 const tetris = (state=initialState.tetris, action)=> {
-  let {grid, currentPiece, score, speed} = state
+  let {grid, currentPiece, nextPiece, score, speed} = state
 
   const delta = movementDeltaForAction(action)
   if (!delta) return state
@@ -185,7 +186,8 @@ const tetris = (state=initialState.tetris, action)=> {
     const eliminatedRowCount = addResult.eliminatedRowCount
     grid = addResult.grid
 
-    currentPiece = getNewPiece()
+    currentPiece = nextPiece
+    nextPiece    = getNewPiece()
 
     score += SCORING[eliminatedRowCount]
     speed += 0.02
@@ -201,6 +203,7 @@ const tetris = (state=initialState.tetris, action)=> {
   return {
     grid,
     currentPiece,
+    nextPiece,
     score,
     speed
   }
