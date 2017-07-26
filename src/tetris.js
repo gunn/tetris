@@ -105,7 +105,7 @@ const App = ({grid, currentPiece, nextPiece, score, speed})=>
         {score && score || ""}
       </h1>
 
-      <div style={{position: "relative", margin: "0px 30px"}}>
+      <div style={{position: "relative", margin: "0px 25px"}}>
         <Piece {...nextPiece} x={0} y={0}/>
       </div>
     </div>
