@@ -15,11 +15,11 @@
     "eslint": "^4.3.0",
     "express": "^4.15.3",
     "react-hot-loader": "next",
-    "webpack": "^3.3.0",
-    "webpack-dev-middleware": "^1.11.0",
+    "webpack": "^3.4.1",
+    "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2"
   },
   "dependencies": {
-    "inferno": "^3.7.0"
+    "inferno": "^3.7.1"
   }
 }
