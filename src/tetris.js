@@ -1,6 +1,6 @@
 import Inferno from 'inferno'
 
-const BLOCK_SIZE  = 35
+const BLOCK_SIZE  = 32
 const BORDER_SIZE = 2
 const MARGINS     = [10, 10, 10, 10]
 
@@ -10,8 +10,8 @@ const Piece = ({ color, blocks, x, y })=>
       blocks.map(([bx, by], i)=> {
         const style = {
           backgroundColor: color,
-          top:  MARGINS[0] + BORDER_SIZE+ (y+by)*BLOCK_SIZE,
-          left: MARGINS[3] + BORDER_SIZE+ (x+bx)*BLOCK_SIZE
+          top:  (y+by)*BLOCK_SIZE,
+          left: (x+bx)*BLOCK_SIZE
         }
         return <div className="block" key={i} style={style}/>
       })
@@ -19,7 +19,7 @@ const Piece = ({ color, blocks, x, y })=>
   </div>
 
 
-const Tetris = ({ grid, currentPiece })=> {
+const Tetris = ({ grid, currentPiece, score })=> {
   const WIDTH  = grid.length
   const HEIGHT = grid[0].length
 
@@ -32,12 +32,24 @@ const Tetris = ({ grid, currentPiece })=> {
             margin:  0;
             // box-sizing: border-box;
           }
+          html, body {
+            height: 100%;
+            background-color: #ffd5d5;
+            background-image: linear-gradient(#ffd5d5, #b3aeff);
+          }
+
+          #root>div {
+            text-align: center;
+          }
+
           .board {
+            position: relative;
             margin: ${MARGINS.map(m=> m+"px").join(" ")};
             width:  ${(WIDTH  * BLOCK_SIZE)+BORDER_SIZE}px;
             height: ${(HEIGHT * BLOCK_SIZE)+BORDER_SIZE}px;
-            border: ${BORDER_SIZE}px solid #888;
+            border: ${BORDER_SIZE}px solid rgba(0, 0, 0, 0.3);
             display: inline-block;
+            background-color: rgba(34, 34, 34, 0.7);
           }
 
           .info {
@@ -55,7 +67,7 @@ const Tetris = ({ grid, currentPiece })=> {
           }
 
           .block.empty {
-            border: ${BORDER_SIZE}px solid #EEE;
+            border: ${BORDER_SIZE}px solid rgba(0, 0, 0, 0.06);
             z-index: 10;
           }
         `}
@@ -66,9 +78,9 @@ const Tetris = ({ grid, currentPiece })=> {
           return column.map((blockColor, j)=> {
             // if (blockColor) {
               const style = {
-                backgroundColor: blockColor ? blockColor : "initial",
-                top:  MARGINS[0] + BORDER_SIZE+ j*BLOCK_SIZE,
-                left: MARGINS[3] + BORDER_SIZE+ i*BLOCK_SIZE
+                backgroundColor: blockColor ? blockColor : null,
+                top:   j*BLOCK_SIZE,
+                left:  i*BLOCK_SIZE
               }
 
               return <div key={i+"-"+j}
@@ -94,11 +106,11 @@ const zerosForScore = (score)=> {
 
 const App = ({grid, currentPiece, nextPiece, score, speed})=>
   <div>
-    <Tetris {...{grid, currentPiece}} />
+    <Tetris {...{grid, currentPiece, score}} />
 
     <div className="info">
       <h1 style={{fontFamily: "monospace", color: "#333"}}>
-        <span style={{color: "#CCC"}}>
+        <span style={{color: "rgba(0, 0, 0, 0.15)"}}>
           {zerosForScore(score)}
         </span>
 
