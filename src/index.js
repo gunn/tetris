@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import { render } from 'inferno'
 import store from './store'
 import App from './tetris'
 
@@ -15,17 +15,17 @@ const processFrame = ()=> {
 processFrame()
 
 
-const render = ()=> {
-  Inferno.render(
+const doRender = ()=> {
+  render(
     <App {...store.getState().tetris}/>,
     document.getElementById("root")
   )
 }
 
 if (window.unsubscribe) window.unsubscribe()
-window.unsubscribe = store.subscribe(render)
-render()
+window.unsubscribe = store.subscribe(doRender)
+doRender()
 
 if (module.hot) {
-  module.hot.accept(render)
+  module.hot.accept(doRender)
 }

@@ -9,7 +9,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-plugin-inferno": "^3.2.0",
+    "babel-plugin-inferno": "^5.0.1",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.5.0",
@@ -20,6 +20,6 @@
     "webpack-hot-middleware": "^2.18.2"
   },
   "dependencies": {
-    "inferno": "^3.8.0"
+    "inferno": "^5.0.5"
   }
 }
