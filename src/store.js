@@ -67,8 +67,8 @@ const initialState = {
   lastDropTime: new Date()
 }
 
-const movementDeltaForAction = (action)=> {
-  switch (action.type) {
+const movementDeltaForAction = movement=> {
+  switch (movement) {
     case 'ArrowUp'   : return {r:  1}
     case 'ArrowLeft' : return {x: -1}
     case 'ArrowRight': return {x:  1}
@@ -170,10 +170,10 @@ const addPieceToGrid = (grid, piece)=> {
   }
 }
 
-const tetris = (state=initialState.tetris, action)=> {
+const tetris = (state=initialState.tetris, movement)=> {
   let {grid, currentPiece, nextPiece, score, speed} = state
 
-  const delta = movementDeltaForAction(action)
+  const delta = movementDeltaForAction(movement)
   if (!delta) return state
 
   const pieceHasSettled = delta.y && !pieceCanMoveDown(grid, currentPiece)
@@ -211,25 +211,17 @@ const tetris = (state=initialState.tetris, action)=> {
   }
 }
 
-const lastDropTime = (state=new Date(), action)=> {
-    switch (action.type) {
-    case 'Space':
-    case 'ArrowDown':
-    case 'Drop':
-      return new Date()
-    default:
-      return state
-  }
-}
-
-
 
 const store = createStore(initialState)
 
-store.dispatch = action=> {
+store.drop = ()=> {
+  store.update({lastDropTime: new Date()})
+  store.move("Drop")
+}
+
+store.move = movement=> {
   store.update(state=> {
-    state.tetris       = tetris(state.tetris, action)
-    state.lastDropTime = lastDropTime(state.lastDropTime, action)
+    state.tetris = tetris(state.tetris, movement)
   })
 }
 

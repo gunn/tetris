@@ -3,13 +3,13 @@ import store from './store'
 import App from './tetris'
 
 
-document.onkeydown = e=> store.dispatch({type: e.code})
+document.onkeydown = e=> store.move(e.code)
 
 const processFrame = ()=> {
   const {lastDropTime, tetris: {speed}} = store.getState()
   const elapsedTime = new Date() - lastDropTime
 
-  if (elapsedTime > 1000 / speed) store.dispatch({type: "Drop"})
+  if (elapsedTime > 1000 / speed) store.drop()
   requestAnimationFrame(processFrame)
 }
 processFrame()
