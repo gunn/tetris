@@ -1,3 +1,5 @@
+import createStore from 'pure-store'
+
 const WIDTH  = 11
 const HEIGHT = 24
 
@@ -222,26 +224,14 @@ const lastDropTime = (state=new Date(), action)=> {
 
 
 
-let state = initialState
+const store = createStore(initialState)
 
-let store = {
-  dispatch(action) {
+store.dispatch = action=> {
+  store.update(state=> {
     state.tetris       = tetris(state.tetris, action)
     state.lastDropTime = lastDropTime(state.lastDropTime, action)
-
-    if (this.callback) this.callback()
-  },
-
-  getState() {
-    return state
-  },
-
-  subscribe(callback) {
-    this.callback = callback
-    return ()=> this.callback = null
-  }
+  })
 }
-
 
 
 export default store
