@@ -143,13 +143,6 @@ const addPieceToGrid = (grid, piece)=> {
     grid[x][y] = color
   })
 
-  // const changedRows = piece.blocks.map(([bx, by])=> py+by)
-  //                                 .filter((e, i, a)=> a.indexOf(e)==i)
-
-  // const filledRows = changedRows.filter(y=> {
-  //   return grid.every(column=> column[y])
-  // })
-
   const filledRows = grid[0].map((_, i)=> i).filter(i=> {
     return grid.every(column=> column[i])
   })
@@ -161,16 +154,10 @@ const addPieceToGrid = (grid, piece)=> {
     })
   })
 
-  // FIXME: grid has been mutated:
-  grid = grid.map(column=> column.map(cell=> cell))
-
-  return {
-    grid,
-    eliminatedRowCount: filledRows.length
-  }
+  return { eliminatedRowCount: filledRows.length }
 }
 
-const tetris = (state=initialState.tetris, movement)=> {
+const tetris = (state, movement)=> {
   let {grid, currentPiece, nextPiece, score, speed} = state
 
   const delta = movementDeltaForAction(movement)
@@ -184,9 +171,7 @@ const tetris = (state=initialState.tetris, movement)=> {
 
 
   if (pieceHasSettled) {
-    const addResult = addPieceToGrid(grid, currentPiece)
-    const eliminatedRowCount = addResult.eliminatedRowCount
-    grid = addResult.grid
+    const { eliminatedRowCount } = addPieceToGrid(grid, currentPiece)
 
     currentPiece = nextPiece
     nextPiece    = getNewPiece()
