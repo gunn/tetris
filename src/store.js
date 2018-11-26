@@ -92,10 +92,9 @@ const pieceCanFit = (grid, piece)=> {
 }
 
 const pieceCanMoveDown = (grid, piece)=> {
-  const movedPiece = {
-    ...piece,
+  const movedPiece = Object.assign({}, piece, {
     y: piece.y + 1
-  }
+  })
 
   return pieceCanFit(grid, movedPiece)
 }
@@ -103,12 +102,10 @@ const pieceCanMoveDown = (grid, piece)=> {
 const attemptMove = (grid, piece, delta)=> {
   const deltas = Object.assign({x: 0, y: 0, r: 0}, delta)
 
-  const newPiece = {
-    ...piece,
+  const newPiece = Object.assign({}, piece, {
     r: piece.r + deltas.r,
-    x: piece.x + deltas.x,
-    // y: piece.y + deltas.y,
-  }
+    x: piece.x + deltas.x
+  })
 
   if (deltas.r) {
     newPiece.blocks = newPiece.blocks.map(b=> newPiece.rotate(b, newPiece.r))
