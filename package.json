@@ -7,13 +7,13 @@
     "build": "parcel build index.html"
   },
   "devDependencies": {
-    "babel-plugin-inferno": "^5.0.1",
-    "babel-plugin-transform-object-rest-spread": "^7.0.0-beta.3",
+    "@babel/core": "^7",
+    "babel-plugin-inferno": "^6.0.4",
     "babel-preset-env": "^1.7.0",
-    "parcel-bundler": "^1.8.1"
+    "parcel-bundler": "^1.10.3"
   },
   "dependencies": {
     "inferno": "^5.0.5",
-    "pure-store": "^0.3.2"
+    "pure-store": "^0.3.4"
   }
 }

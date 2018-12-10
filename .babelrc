@@ -1,4 +1,4 @@
 {
   "presets": ["env"],
-  "plugins": ["inferno", "transform-object-rest-spread"]
+  "plugins": ["inferno"]
 }
